@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-// Pedir para o cloude explicar melhor essa classe
 //------------------------------------------------------------------------------------------------------------
 @RestControllerAdvice
 public class GlobalExceptionHandler extends Exception {
