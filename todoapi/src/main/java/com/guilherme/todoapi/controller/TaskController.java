@@ -3,6 +3,7 @@ package com.guilherme.todoapi.controller;
 import com.guilherme.todoapi.model.Task;
 import com.guilherme.todoapi.repository.TaskRepository;
 import com.guilherme.todoapi.service.TaskService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +18,8 @@ public class TaskController {
 
 // POST
     @PostMapping("/tasks")
-    public Task createTask(@RequestBody Task task){
-
+    public Task createTask(@Valid @RequestBody Task task){
+        // Spring verifica as anotações (@NotBlank, @Size...) ANTES de entrar no metodo
         return taskService.createTask(task);
     }
 //------------------------------------------------------------------------------------------------------------

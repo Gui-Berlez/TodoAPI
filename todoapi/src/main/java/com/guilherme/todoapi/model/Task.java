@@ -10,12 +10,18 @@ import jakarta.validation.constraints.Size;
 @Entity
 public class Task {
 
+
+    //-----------------------------------------------------------------------------------------------------------------------------------------
+    // Atributos
+
     @Id //Identifica qual é a Primary Key da tabela(A que fica logo a baixo desse comando)
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Realiza o AUTO_INCREMENT no banco, adicionando mais um no valor do ID na tabela
     // A Primary Key é sempre o atributo a que está abaixo dessas linhas acima!!
     private Long id;
 
+    //@NotBlank = Não aceita null, "" e espaços
     @NotBlank(message = "O título precisa ser prenchido!")
+    //@Size  = Define o tamanho minimo/máximo
     @Size(min = 3, message = "O título deve ter pelo menos 3 caracteres")
     private String title;
 
@@ -23,7 +29,8 @@ public class Task {
     @Size(min = 5, message = "A descrição deve ter pelo menos 5 caracteres")
     private String description;
     private boolean completed;
-
+//-----------------------------------------------------------------------------------------------------------------------------------------
+// Getters and Setters
 
     public Long getId() { return id; }
 
