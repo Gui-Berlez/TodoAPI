@@ -30,13 +30,13 @@ public class Task {
     private String description;
     private boolean completed;
     //-----------------------------------------------------------------------------------------------------------------------------------------
-// Constructor
+    // Constructor
 
     public Task() {
     }
 
     //-----------------------------------------------------------------------------------------------------------------------------------------
-// Getters and Setters
+    // Getters and Setters
 
     public Long getId() { return id; }
 
