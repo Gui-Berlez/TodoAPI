@@ -20,6 +20,9 @@ public class AuthController {
     @PostMapping("/login")
     public String login(@RequestBody User user) {
 
+
+        //FAZER TRATAMENTO DAS EXCEÇÕES DE USER N ENONTRADO E SENHA INVALIDA!!!!!!!!!!!!!!
+
         User dbUser = userRepository.findByUsername(user.getUsername())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 

@@ -12,20 +12,20 @@ public class JwtUtil {
 
         public static String generateToken(String username) {
             return Jwts.builder()
-                    .setSubject(username)
-                    .setIssuedAt(new Date())
-                    .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
-                    .signWith(key)
-                    .compact();
+                    .setSubject(username)        // quem é o dono do token
+                    .setIssuedAt(new Date())     // quando foi criado
+                    .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))  // expira em 1 hora
+                    .signWith(key)               // assina com a chave secreta
+                    .compact();                  // gera a String final (o token gigante)
         }
 
         public static String extractUsername(String token) {
             return Jwts.parserBuilder()
-                    .setSigningKey(key)
+                    .setSigningKey(key)    // usa a mesma chave pra validar
                     .build()
-                    .parseClaimsJws(token)
-                    .getBody()
-                    .getSubject();
+                    .parseClaimsJws(token) // lê e valida o token
+                    .getBody()             // pega o payload
+                    .getSubject();         // pega o username
         }
 
 }
