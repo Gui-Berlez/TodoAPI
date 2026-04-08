@@ -1,31 +1,54 @@
 package com.guilherme.todoapi.security;
+
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
 
-// Lógica de segurança (token)
+@Component // virou um Bean do Spring — pode ser injetado em outras classes
 public class JwtUtil {
 
-        private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private final Key key;
 
-        public static String generateToken(String username) {
-            return Jwts.builder()
-                    .setSubject(username)        // quem é o dono do token
-                    .setIssuedAt(new Date())     // quando foi criado
-                    .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))  // expira em 1 hora
-                    .signWith(key)               // assina com a chave secreta
-                    .compact();                  // gera a String final (o token gigante)
-        }
+    // @Value lê do application.properties
+    // Se a propriedade não existir, usa o valor padrão após o ':'
+    public JwtUtil(@Value("${jwt.secret:segredo-padrao-trocar-em-producao-123456}") String secret) {
+        this.key = Keys.hmacShaKeyFor(secret.getBytes());
+    }
 
-        public static String extractUsername(String token) {
-            return Jwts.parserBuilder()
-                    .setSigningKey(key)    // usa a mesma chave pra validar
+    // Gera o token com username, data de criação e expiração
+    public String generateToken(String username) {
+        return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hora
+                .signWith(key)
+                .compact();
+    }
+
+    // Extrai o username de dentro do token
+    public String extractUsername(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
+
+    // Valida se o token é legítimo e não expirou
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(key)
                     .build()
-                    .parseClaimsJws(token) // lê e valida o token
-                    .getBody()             // pega o payload
-                    .getSubject();         // pega o username
+                    .parseClaimsJws(token); // lança exceção se inválido ou expirado
+            return true;
+        } catch (JwtException e) {
+            return false;
         }
-
+    }
 }
