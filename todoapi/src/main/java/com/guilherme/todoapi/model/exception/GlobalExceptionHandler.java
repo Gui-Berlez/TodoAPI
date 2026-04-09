@@ -11,7 +11,7 @@ import java.util.Map;
 
 //------------------------------------------------------------------------------------------------------------
 @RestControllerAdvice
-public class GlobalExceptionHandler extends Exception {
+public class GlobalExceptionHandler{
 
     // Trata erro 404 - Não encontrado
    @ExceptionHandler(ResourceNotFoundException.class)
