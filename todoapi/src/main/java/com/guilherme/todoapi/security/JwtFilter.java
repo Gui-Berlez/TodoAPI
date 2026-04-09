@@ -22,6 +22,7 @@ public class JwtFilter extends OncePerRequestFilter {
         this.jwtUtil = jwtUtil;
     }
 
+    // Fará o filtro em cada requisição
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
@@ -35,7 +36,6 @@ public class JwtFilter extends OncePerRequestFilter {
         // "Bearer xxxxxxxxxxx" é o padrão para tokens JWT
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
 
-
             // 3. Remove o "Bearer " e fica só com o token
             String token = authHeader.substring(7);
 
@@ -47,8 +47,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
                 // 6. Cria um objeto de autenticação e registra no Spring Security
                 // Isso diz pro Spring: "esse usuário está autenticado"
-                UsernamePasswordAuthenticationToken auth =
-                        new UsernamePasswordAuthenticationToken(username, null, List.of());
+                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(username, null, List.of());
 
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }

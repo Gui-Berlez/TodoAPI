@@ -15,7 +15,7 @@ public class JwtUtil {
 
     // @Value lê do application.properties
     // Se a propriedade não existir, usa o valor padrão após o ':'
-    public JwtUtil(@Value("${jwt.secret:segredo-padrao-trocar-em-producao-123456}") String secret) {
+    public JwtUtil(@Value("${jwt.secret:7#kP2@mXqL9$vNzR4&wYcF6!sTbE1^uA-123456}") String secret) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
