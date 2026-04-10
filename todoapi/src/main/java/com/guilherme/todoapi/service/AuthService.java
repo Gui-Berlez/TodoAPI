@@ -27,7 +27,7 @@ public class AuthService {
 
     // Cadastro — hasheia a senha antes de salvar
     @PostMapping("/register")
-    public String register(@RequestBody User user) {
+    public String register(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return "Usuário cadastrado com sucesso!";
@@ -35,7 +35,7 @@ public class AuthService {
 
     // Login — compara a senha com o hash do banco
     @PostMapping("/login")
-    public String login(@RequestBody User user) {
+    public String login(User user) {
         User dbUser = userRepository.findByUsername(user.getUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
 
