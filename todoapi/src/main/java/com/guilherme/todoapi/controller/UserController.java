@@ -18,10 +18,12 @@ public class UserController {
     private UserRepository userRepository;
 
     // POST
-    @PostMapping("/users")
-    public User creataUser(@Valid @RequestBody User user){
-        return userService.createUser(user);
-    }
+    //  Comentei o POST do USER pois já adicionamos o usuário no REGISTER em AuthController com o hasheamento correto
+
+//    @PostMapping("/users")
+//    public User creataUser(@Valid @RequestBody User user){
+//        return userService.createUser(user);
+//    }
 
 
     //------------------------------------------------------------------------------------------------------------

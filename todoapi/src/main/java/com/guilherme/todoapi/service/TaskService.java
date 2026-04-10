@@ -58,14 +58,15 @@ public class TaskService {
     //PUT
     public Task updateTask(Long id, Task updateTask){
 
-        Task task = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Tarefa não encontrada!"));// Cria um Objeto Task que recebe a função do Repository que irá procurar o ID no banco,
+        Task task = taskRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Tarefa não encontrada!"));// Cria um Objeto Task que recebe a função do Repository que irá procurar o ID no banco,
                                                                     // caso ele não ache, retorna null
 
             task.setTitle(updateTask.getTitle());
             task.setDescription(updateTask.getDescription());
             task.setCompleted(updateTask.isCompleted());
             return taskRepository.save(task);
-            
+
     }
 
 }
