@@ -1,6 +1,7 @@
 package com.guilherme.todoapi.service;
 
 import com.guilherme.todoapi.model.User;
+import com.guilherme.todoapi.model.exception.ResourceNotFoundException;
 import com.guilherme.todoapi.repository.UserRepository;
 import com.guilherme.todoapi.security.JwtUtil;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -36,7 +37,7 @@ public class AuthService {
     @PostMapping("/login")
     public String login(@RequestBody User user) {
         User dbUser = userRepository.findByUsername(user.getUsername())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
 
         // .matches() hasheia a senha digitada e compara com o hash salvo
         if (!passwordEncoder.matches(user.getPassword(), dbUser.getPassword())) {
