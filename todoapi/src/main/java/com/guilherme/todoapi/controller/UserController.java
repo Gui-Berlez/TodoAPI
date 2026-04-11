@@ -5,6 +5,7 @@ import com.guilherme.todoapi.repository.UserRepository;
 import com.guilherme.todoapi.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,8 +40,9 @@ public class UserController {
     //------------------------------------------------------------------------------------------------------------
     // DELETE
     @DeleteMapping("/{id})")
-    public void deleteUser(@PathVariable Long id){
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
         userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 
 

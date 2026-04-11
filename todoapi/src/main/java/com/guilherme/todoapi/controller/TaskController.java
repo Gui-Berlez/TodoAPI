@@ -5,6 +5,7 @@ import com.guilherme.todoapi.repository.TaskRepository;
 import com.guilherme.todoapi.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,9 +24,9 @@ public class TaskController {
 
 // POST
     @PostMapping
-    public Task createTask(@Valid @RequestBody Task task){
+    public ResponseEntity<Task> createTask(@Valid @RequestBody Task task){
         // Spring verifica as anotações (@NotBlank, @Size...) ANTES de entrar no metodo
-        return taskService.createTask(task);
+        return ResponseEntity.status(201).body(taskService.createTask(task));
     }
 //------------------------------------------------------------------------------------------------------------
 // GET
@@ -43,9 +44,11 @@ public class TaskController {
 //------------------------------------------------------------------------------------------------------------
 // DELETE
     @DeleteMapping("/{id}")
-    public void deleteTask(@PathVariable Long id){
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
+        return ResponseEntity.noContent().build();// retorna 204, mostrando que está tud certo, mas que não tem nenhum retorno}
     }
+
 //------------------------------------------------------------------------------------------------------------
 // PUT
     @PutMapping("/{id}")
