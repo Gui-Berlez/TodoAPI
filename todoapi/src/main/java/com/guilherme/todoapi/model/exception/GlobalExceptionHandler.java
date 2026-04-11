@@ -18,7 +18,7 @@ public class GlobalExceptionHandler{
    @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFound(ResourceNotFoundException ex){
        ErrorResponse error = new ErrorResponse(404, ex.getMessage());
-       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error); // status + corpo juntos
    }
 
     // Trata erro 400 — validação de campos
@@ -35,7 +35,7 @@ public class GlobalExceptionHandler{
         response.put("mensagem", "Erro de validação");
         response.put("campos", campos);
 
-        return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); // status + corpo juntos
 
     }
 
@@ -43,6 +43,6 @@ public class GlobalExceptionHandler{
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException ex){
        ErrorResponse error = new ErrorResponse(400, ex.getMessage());
-       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error); // status + corpo juntos
     }
 }
