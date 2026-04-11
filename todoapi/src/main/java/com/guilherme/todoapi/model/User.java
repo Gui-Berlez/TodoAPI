@@ -20,7 +20,7 @@ public class User {
     @Size(min = 3, message = "O nome de usuário tem q ter pelo menos 3 caracteres")
     private String username;
     @NotBlank(message = "A senha é obrigatória!")
-    @Size(min = 6, message = "A senh precisa ter pelo menos 6 caracteres")
+    @Size(min = 6, message = "A senha precisa ter pelo menos 6 caracteres")
     private String password;
 
     //-----------------------------------------------------------------------------------------------------------------------------------------
