@@ -43,6 +43,7 @@ public class UserService {
     //------------------------------------------------------------------------------------------------------------
     //DELETE
     public void deleteUser(Long id){
+        userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não existente!"));
         userRepository.deleteById(id);
     }
 

@@ -46,7 +46,7 @@ public class TaskController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
-        return ResponseEntity.noContent().build();// retorna 204, mostrando que está tud certo, mas que não tem nenhum retorno}
+        return ResponseEntity.noContent().build();// retorna 204, mostrando que está tudo certo, mas que não tem nenhum retorno}
     }
 
 //------------------------------------------------------------------------------------------------------------

@@ -46,6 +46,9 @@ public class TaskService {
 
     //DELETE
     public void deleteTask(Long id){
+
+        taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Tarefa não existente!"));
+
         taskRepository.deleteById(id); //Esse comando deleta a tarefa peo ID, que estará na URL
 
 
