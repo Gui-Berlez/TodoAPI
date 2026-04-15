@@ -1,6 +1,7 @@
 package com.guilherme.todoapi.service;
 
 import com.guilherme.todoapi.model.User;
+import com.guilherme.todoapi.model.UserDTO;
 import com.guilherme.todoapi.model.exception.ResourceNotFoundException;
 import com.guilherme.todoapi.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,15 +30,20 @@ public class UserService {
 
     //------------------------------------------------------------------------------------------------------------
     // GET
-    public List<User> getUsers(){
-        return userRepository.findAll().stream().map(User::new).toList();
+    public List<UserDTO> getUsers(){
+        //converte User em UserDTO (esconde a senha)
+        return userRepository.findAll()
+                .stream() // transforma a lista em um fluxo processável
+                .map(UserDTO::new) // para cada User, cria um UserDTO
+                .toList(); // coleta tudo de volta numa lista
     }
     // GET por ID
     // Caso com tratamento de Exceções
-    public User getUserById(Long id){
+    public UserDTO getUserById(Long id){
         //se encontrar → retorna Task
         //se NÃO → explode erro (exception)
-        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado!"));
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado!"));
+        return new UserDTO(user);
     }
 
     //------------------------------------------------------------------------------------------------------------
@@ -49,7 +55,7 @@ public class UserService {
 
     //------------------------------------------------------------------------------------------------------------
     //PUT
-    public User updateUser(Long id, User updateUser){
+    public UserDTO updateUser(Long id, User updateUser){
 
         User user = userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Usuário não encontrado!"));
 
@@ -57,7 +63,8 @@ public class UserService {
         // hasheia a noiva senha antes de salvar!
         user.setPassword(passwordEncoder.encode(updateUser.getPassword()));
 
-        return userRepository.save(user);
+        UserDTO userDTO = new UserDTO(userRepository.save(user));
+        return userDTO;
 
     }
 

@@ -1,6 +1,7 @@
 package com.guilherme.todoapi.controller;
 
 import com.guilherme.todoapi.model.User;
+import com.guilherme.todoapi.model.UserDTO;
 import com.guilherme.todoapi.repository.UserRepository;
 import com.guilherme.todoapi.service.UserService;
 import jakarta.validation.Valid;
@@ -28,12 +29,12 @@ public class UserController {
     //------------------------------------------------------------------------------------------------------------
     // GET
     @GetMapping
-    public List<User> getUser(){
+    public List<UserDTO> getUser(){
         return userService.getUsers();
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id){
+    public UserDTO getUserById(@PathVariable Long id){
        return userService.getUserById(id);
     }
 
@@ -49,7 +50,7 @@ public class UserController {
     //------------------------------------------------------------------------------------------------------------
     // PUT
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @Valid @RequestBody User user){
+    public UserDTO updateUser(@PathVariable Long id, @Valid @RequestBody User user){
         return userService.updateUser(id, user);
     }
 

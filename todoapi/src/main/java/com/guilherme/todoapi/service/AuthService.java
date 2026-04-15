@@ -26,7 +26,6 @@ public class AuthService {
     }
 
     // Cadastro — hasheia a senha antes de salvar
-    @PostMapping("/register")
     public String register(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
@@ -34,7 +33,6 @@ public class AuthService {
     }
 
     // Login — compara a senha com o hash do banco
-    @PostMapping("/login")
     public String login(User user) {
         User dbUser = userRepository.findByUsername(user.getUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));

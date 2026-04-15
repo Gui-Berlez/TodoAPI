@@ -27,9 +27,6 @@ public class User {
     // Constructor
     public User() {}
 
-    public User(User user) {
-    }
-
     //-----------------------------------------------------------------------------------------------------------------------------------------
     // Getters and Setters
     public Long getId() {
