@@ -30,7 +30,7 @@ public class UserService {
     //------------------------------------------------------------------------------------------------------------
     // GET
     public List<User> getUsers(){
-        return userRepository.findAll();
+        return userRepository.findAll().stream().map(User::new).toList();
     }
     // GET por ID
     // Caso com tratamento de Exceções

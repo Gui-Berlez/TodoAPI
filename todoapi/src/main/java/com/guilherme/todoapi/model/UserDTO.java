@@ -1,6 +1,4 @@
-package com.guilherme.todoapi.model.exception;
-
-import com.guilherme.todoapi.model.User;
+package com.guilherme.todoapi.model;
 
 public class UserDTO {
 
