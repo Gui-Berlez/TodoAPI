@@ -1,15 +1,18 @@
 services:
 
-  # Banco de dados MySQL
   db:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: todo_db
     ports:
-      - "3307:3306"  # 3307 no host para não conflitar com seu MySQL local
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p123456"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  # Sua API
   api:
     build: ./todoapi
     ports:
@@ -20,4 +23,5 @@ services:
       SPRING_DATASOURCE_PASSWORD: 123456
       JWT_SECRET: HjTxHADqY/HytSP1MGWvLiRVXBWZlHFeo3i47zLoQaI=
     depends_on:
-      - db
+      db:
+        condition: service_healthy
