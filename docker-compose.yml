@@ -18,6 +18,6 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/todo_db
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: 123456
-      JWT_SECRET: minha-chave-super-secreta-guilherme-todoapi-2024
+      JWT_SECRET: HjTxHADqY/HytSP1MGWvLiRVXBWZlHFeo3i47zLoQaI=
     depends_on:
       - db
